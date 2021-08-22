@@ -1,0 +1,15 @@
+---
+- name: Check .vimrc Presence
+  stat:
+    path: "{{ ansible_env.HOME }}/.vimrc"
+  register: vimrc
+  tags:
+  - vim
+
+- name: Create .vimrc file
+  copy:
+    src: .vimrc
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+  when: not vimrc.stat.exists
+  tags:
+  - vim

@@ -1,0 +1,25 @@
+#!/usr/bin/env ansible-playbook
+- hosts: localhost
+  connection: local
+
+  roles:
+  - git
+
+  tasks:
+    - name: Install Essentials
+      import_role:
+       name: brew
+      vars:
+        brew_formulas:
+          - make
+          - bert
+          - wget
+          - watch
+          - python@{{ python_version }}
+          - tree
+
+        brew_casks:
+          - iterm2
+          - google-chrome
+          - sublime-text
+          - telegram

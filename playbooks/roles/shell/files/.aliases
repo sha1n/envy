@@ -1,0 +1,2 @@
+alias home="cd $HOME"
+alias gos="cd $HOME/go/src/github.com/sha1n"

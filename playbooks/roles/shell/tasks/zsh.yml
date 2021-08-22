@@ -1,0 +1,16 @@
+---
+- name: Install Zsh
+  command: apt install -y zsh
+  register: zsh_installed
+  become: true
+  changed_when: zsh_installed.rc == 0
+  tags:
+  - zsh
+
+- name: Change Shell to Zsh 
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  tags:
+  - zsh

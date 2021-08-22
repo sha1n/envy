@@ -1,0 +1,18 @@
+---
+- name: Check .path Presence
+  stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  register: omz_home
+  tags:
+  - omz
+  - zsh
+
+# FIXME: figure out how to reuse https://github.com/ctorgalson/ansible-role-oh-my-zsh
+- name: Install oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  register: omz_install
+  when: not omz_home.stat.exists
+  changed_when: omz_install.rc == 0
+  tags:
+  - omz
+  - zsh

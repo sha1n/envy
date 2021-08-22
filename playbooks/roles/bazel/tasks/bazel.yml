@@ -1,0 +1,38 @@
+---
+- name: Download Bazel Tools (macOS)
+  get_url:
+    url: "{{ item.remote.darwin }}"
+    dest: "{{ item.local }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ bazel_tools }}"
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+  - bazel
+  
+- name: Download Bazel Tools (Linux)
+  get_url:
+    url: "{{ item.remote.linux }}"
+    dest: "{{ item.local }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ bazel_tools }}"
+  when: 
+  - ansible_facts['machine'] == "x86_64" 
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - bazel
+
+- name: Check .bazelrc Presence
+  stat:
+    path: "{{ ansible_env.HOME }}/.bazelrc"
+  register: bazelrc
+  tags:
+  - bazel
+
+- name: Create .bazelrc file
+  copy:
+    src: .bazelrc
+    dest: "{{ ansible_env.HOME }}/.bazelrc"
+    mode: "0644"
+  when: not bazelrc.stat.exists
+  tags:
+  - bazel

@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# VS code
+.vscode/
+.metals/
+
+# Bazel intellij plugin
+.ijwb/
+bazel-*/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv
+
+.settings
+.project
+
+# IDEA
+.idea/
+*.iml
+
+*.log
+
+# node_modules
+node_modules/

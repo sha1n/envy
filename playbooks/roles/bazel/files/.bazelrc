@@ -1,0 +1,15 @@
+startup --shutdown_on_low_sys_mem
+
+common --ui_event_filters=-DEBUG
+common --ui_actions_shown=48
+common --show_timestamps
+
+build --worker_verbose=true
+
+test --test_runner_fail_fast
+test --test_output=all
+test --build_tests_only
+
+test:flaky --flaky_test_attempts=5
+test:flaky --runs_per_test_detects_flakes=true
+test:flaky --nocache_test_results
