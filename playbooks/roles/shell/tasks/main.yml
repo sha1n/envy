@@ -1,0 +1,34 @@
+---
+# create a directory if it doesn't exist
+- name: Create ~/.local/bin
+  file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
+    mode: 0755
+  tags:
+  - zsh
+
+- include_tasks: zsh.yml
+  when:
+  - ansible_facts['machine'] == "x86_64" 
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - zsh
+
+- include_tasks: omz.yml
+  tags:
+  - omz
+  - zsh
+
+- include_tasks: aliases.yml
+  tags:
+  - zsh
+
+- include_tasks: paths.yml
+  tags:
+  - zsh
+
+- include_tasks: vim.yml
+  tags:
+  - vim
+

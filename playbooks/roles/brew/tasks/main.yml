@@ -1,0 +1,39 @@
+---
+- name: Tap a Homebrew repository
+  # FIXME this is not very elegant. Separate Ubuntu from macOS?
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
+  community.general.homebrew_tap:
+    name: "{{ item }}"
+    state: present 
+  loop: "{{ brew_taps }}"
+  tags:
+  - brew
+
+- include_tasks: install_formula.yml
+  vars:
+    brew_formulas: "{{ macos_brew_formulas }}"
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+  - brew
+
+- include_tasks: install_formula.yml
+  vars:
+    brew_formulas: "{{ linux_brew_formulas }}"
+  when: 
+  - ansible_facts['machine'] == "x86_64" 
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - brew
+
+- include_tasks: install_cask.yml
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+  - brew
+
+- name: Run Homebrew Cleanup
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
+  command: brew cleanup
+  tags:
+  - brew

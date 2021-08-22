@@ -1,0 +1,23 @@
+---
+- name: Check .aliases Presence
+  stat:
+    path: "{{ ansible_env.HOME }}/.aliases"
+  register: aliases
+  tags:
+  - zsh
+
+- name: Create .aliases file
+  copy:
+    src: .aliases
+    dest: "{{ ansible_env.HOME }}/.aliases"
+  when: not aliases.stat.exists
+  tags:
+  - zsh
+
+- name: Source .aliases file
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: source "$HOME/.aliases"
+  when: not aliases.stat.exists
+  tags:
+  - zsh

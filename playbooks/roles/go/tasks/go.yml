@@ -1,0 +1,29 @@
+---
+- name: Install Go tools
+  include_role:
+    name: brew
+    tasks_from: install_formula.yml
+  vars:
+    brew_formulas:
+    - go
+    - goreleaser
+  tags:
+  - go
+
+- name: Creates Go home directory
+  file:
+    path: "{{ ansible_env.HOME }}/go"
+    mode: "0755"
+    state: directory
+  tags:
+  - go
+
+- name: Export Go Var
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.exports"
+    line: "{{ item }}"
+  with_items: 
+  - "export GOPATH=\"$HOME/go\""
+  - "export PATH=\"$GOPATH/bin:$PATH\""
+  tags:
+  - go

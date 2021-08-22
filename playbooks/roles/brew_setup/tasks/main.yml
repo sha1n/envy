@@ -1,0 +1,49 @@
+---
+- name: Check brew exists
+  # FIXME: figure out a more accurate way of doing it so we can run the play again without logging out
+  shell: "which brew"
+  register: which_brew
+  changed_when: false
+  ignore_errors: true
+  tags:
+  - brew
+
+- name: Install Homebrew
+  shell: "bash -c 'set -o pipefail && curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash'"
+  register: brew_installed
+  when: which_brew.rc != 0
+  tags:
+  - brew
+
+- name: Export brew to PATH
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.exports"
+    line: "export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin"
+  when: 
+  - brew_installed is defined 
+  - brew_installed.rc is defined
+  - brew_installed.rc == 0
+  tags:
+  - brew
+
+# FIXME: get this out of this role
+- name: Install Build Essentials
+  apt:
+    pkg:
+    - build-essential
+  become: true
+  when: 
+  - ansible_facts['machine'] == "x86_64"
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - brew
+  - build-essentials
+  - apt
+
+- name: Run Homebrew Update
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
+  homebrew:
+    update_homebrew: true
+  tags:
+  - brew

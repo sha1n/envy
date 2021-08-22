@@ -1,0 +1,40 @@
+---
+- name: Install Git Tools (brew)
+  include_role:
+    name: brew
+    tasks_from: install_formula.yml
+  when: ansible_facts['os_family'] == "Darwin"
+  vars:
+    brew_formulas:
+    - git
+    - gh
+  tags:
+  - git
+
+- name: Install Git (apt)
+  apt:
+    pkg:
+    - git
+  become: true
+  when: 
+  - ansible_facts['machine'] == "x86_64"
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - git
+  - apt
+
+- name: Check .gitignore_global Presence
+  stat:
+    path: "{{ ansible_env.HOME }}/.gitignore_global"
+  register: gitignore_global
+  tags:
+  - git
+
+- name: Create .gitignore_global file
+  copy:
+    src: .gitignore_global
+    dest: "{{ ansible_env.HOME }}/.gitignore_global"
+    mode: "0644"
+  when: not gitignore_global.stat.exists
+  tags:
+  - git

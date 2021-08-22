@@ -1,0 +1,22 @@
+---
+bazel_tools:
+- remote: 
+    darwin: 'https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-darwin-amd64'
+    linux: 'https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64'
+  local: '{{ ansible_env.HOME }}/.local/bin/bazel'
+  mode: '0755'   
+- remote: 
+    darwin: 'https://github.com/bazelbuild/buildtools/releases/latest/download/buildifier-darwin-amd64'
+    linux: 'https://github.com/bazelbuild/buildtools/releases/latest/download/buildifier-linux-amd64'
+  local: '{{ ansible_env.HOME }}/.local/bin/buildifier'
+  mode: '0755'
+- remote: 
+    darwin: 'https://github.com/bazelbuild/buildtools/releases/latest/download/buildozer-darwin-amd64'
+    linux: 'https://github.com/bazelbuild/buildtools/releases/latest/download/buildozer-linux-amd64'
+  local: '{{ ansible_env.HOME }}/.local/bin/buildozer'
+  mode: '0755' 
+- remote: 
+    darwin: 'https://github.com/bazelbuild/buildtools/releases/latest/download/unused_deps-linux-amd64'
+    linux: 'https://github.com/bazelbuild/buildtools/releases/latest/download/unused_deps-linux-amd64'
+  local: '{{ ansible_env.HOME }}/.local/bin/unused_deps'
+  mode: '0755' 

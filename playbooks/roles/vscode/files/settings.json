@@ -1,0 +1,58 @@
+{
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "workbench.tree.indent": 20,
+    "workbench.editor.highlightModifiedTabs": true,
+    "files.autoSave": "afterDelay",
+    "editor.tabSize": 2,
+    "todo-tree.highlights.enabled": true,
+    "todo-tree.tree.showScanModeButton": false,
+    "python.jediEnabled": false,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*_test.py"
+    ],
+    "python.languageServer": "Microsoft",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "workbench.colorTheme": "Nord",
+    "terminal.integrated.fontFamily": "'Menlo for Powerline'",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "go.autocompleteUnimportedPackages": true,
+    "go.testOnSave": true,
+    "go.coverShowCounts": true,
+    "go.lintTool": "golint",
+    "gopls": {
+        "usePlaceholders": true
+    },
+    "[go]": {
+        "editor.insertSpaces": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.suggest.snippetsPreventQuickSuggestions": false
+    },
+    "npm.enableTouchbar": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.fontSize": 14,
+    "yaml.customTags": [
+        "!encrypted/pkcs1-oaep scalar",
+        "!vault scalar"
+    ],
+    "testExplorer.onReload": "reset",
+    "testExplorer.onStart": "reset"
+}
+    

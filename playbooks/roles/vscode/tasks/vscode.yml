@@ -1,0 +1,24 @@
+---
+- name: Install VS Code (brew cask)
+  homebrew_cask:
+    name: visual-studio-code
+  tags:
+  - vscode
+
+- name: Check VS Code Settings Presence
+  stat:
+    path: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/settings.json"
+  register: vscode_settings
+
+- name: Update VS Code settings
+  copy:
+    src: settings.json
+    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/settings.json"
+  when: not vscode_settings.stat.exists
+  tags:
+  - vscode
+
+- include_tasks: vscode_extensions.yml
+  loop: "{{ vscode_extentions }}"
+  tags:
+  - vscode

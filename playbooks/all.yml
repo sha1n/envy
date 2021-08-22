@@ -1,0 +1,11 @@
+#!/usr/bin/env ansible-playbook
+- hosts: localhost
+  connection: local
+  roles:
+  - shell
+  - git
+  - brew
+  - bazel
+  - node
+  - go
+  - vscode
