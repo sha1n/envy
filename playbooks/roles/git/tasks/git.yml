@@ -1,21 +1,10 @@
 ---
-- name: Install Git Tools (brew)
-  include_role:
-    name: brew
-    tasks_from: install_formula.yml
+- include_tasks: install_git_darwin.yml
   when: ansible_facts['os_family'] == "Darwin"
-  vars:
-    brew_formulas:
-    - git
-    - gh
   tags:
   - git
 
-- name: Install Git (apt)
-  apt:
-    pkg:
-    - git
-  become: true
+- include_tasks: install_git_ubuntu.yml
   when: 
   - ansible_facts['machine'] == "x86_64"
   - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
@@ -23,7 +12,19 @@
   - git
   - apt
 
-- name: Check .gitignore_global Presence
+- name: Install GitHub client
+  include_role:
+    name: brew
+    tasks_from: install_formula.yml
+  vars:
+    brew_formulas:
+    - gh
+  tags:
+  - git
+  - gh
+
+
+- name: Check .gitignore_global presence
   stat:
     path: "{{ ansible_env.HOME }}/.gitignore_global"
   register: gitignore_global
@@ -36,5 +37,21 @@
     dest: "{{ ansible_env.HOME }}/.gitignore_global"
     mode: "0644"
   when: not gitignore_global.stat.exists
+  tags:
+  - git
+
+- name: Check .gitconfig presence
+  stat:
+    path: "{{ ansible_env.HOME }}/.gitconfig"
+  register: gitconfig
+  tags:
+  - git
+
+- name: Configure git (creates ~/.gitconfig)
+  ansible.builtin.template:
+    src: .gitconfig.j2
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
+    mode: "0644"
+  when: not gitconfig.stat.exists
   tags:
   - git

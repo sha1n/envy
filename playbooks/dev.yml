@@ -1,10 +1,22 @@
 #!/usr/bin/env ansible-playbook
 - hosts: localhost
   connection: local
+  
+  vars_prompt:
+  - name: git_user_email
+    private: false
+    prompt: Enter your github email address
+
   roles:
   - shell
   - git
   - brew
+  - bazel
   - node
   - go
-
+  - vscode
+  
+  vars_files:
+    - "../vars/user.yml"
+    - "../vars/versions.yml"
+    - "../vars/dev_apps.yml"

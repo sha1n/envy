@@ -9,7 +9,9 @@
   stat:
     path: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/settings.json"
   register: vscode_settings
-
+  tags:
+  - vscode
+  
 - name: Update VS Code settings
   copy:
     src: settings.json

@@ -89,5 +89,14 @@ Vagrant.configure("2") do |config|
     # install ansible 'community.general' collection for the vagrant user
     runuser -l vagrant -c 'ansible-galaxy collection install community.general'
 
+    # copy ssh keys from host
+    runuser -l vagrant -c 'cp -R /host_home/.ssh /home/vagrant'
+
+    sudo apt install -y git
+
+    runuser -l vagrant -c 'mkdir $HOME/code && cd $HOME/code && git clone git@github.com:sha1n/envy.git'
+    # run the 'essentials' playbook from source
+    runuser -l vagrant -c 'cd $HOME/code/envy && ansible-playbook ./playbooks/essentials.yml'
+
   SHELL
 end

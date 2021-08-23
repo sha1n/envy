@@ -1,0 +1,9 @@
+[pull]
+	rebase = true
+[user]
+	name = {{ git_user_name | mandatory }}
+	email = {{ git_user_email | mandatory }}
+[core]
+	excludesfile = {{ ansible_env.HOME }}/.gitignore_global
+[init]
+	defaultBranch = master

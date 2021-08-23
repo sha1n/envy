@@ -1,0 +1,34 @@
+---
+brew_taps:
+  - sha1n/tap
+  - homebrew/cask
+
+macos_brew_formulas:
+  - bert
+  - wget
+  - watch
+  - tree
+  - python@{{ brew_python_version }}
+
+linux_brew_formulas:
+  - gcc
+  - bert
+  - wget
+  - watch
+  - tree
+
+brew_casks:
+  - iterm2
+  - google-chrome
+  - sublime-text
+  - telegram
+
+apt_packages:
+  - curl
+  - software-properties-common 
+  - python3-pip 
+  - pkg-config 
+  - unzip 
+  - zip
+  - git
+  - build-essential

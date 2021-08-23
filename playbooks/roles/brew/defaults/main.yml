@@ -1,0 +1,40 @@
+---
+brew_python_version: "3.9"
+brew_mysql_version: "5.7"
+
+brew_taps:
+  - sha1n/tap
+  - homebrew/cask
+
+brew_formulas: []
+
+macos_brew_formulas:
+  - make
+  - hako
+  - bert
+  - hyperfine
+  - wget
+  - watch
+  - mysql@{{ brew_mysql_version }}
+  - mysql-client@{{ brew_mysql_version }}
+  - kubernetes-cli
+  - python@{{ brew_python_version }}
+  - ansible-lint
+  - tree
+
+linux_brew_formulas:
+  - gcc
+
+brew_casks:
+  - iterm2
+  - google-chrome
+  - sublime-text
+  - intellij-idea
+  - mysqlworkbench
+  - docker
+  - virtualbox
+  - vagrant
+  - slack
+  - telegram
+  - zoom
+  - google-cloud-sdk
