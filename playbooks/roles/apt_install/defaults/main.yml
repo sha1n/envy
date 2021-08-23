@@ -1,0 +1,13 @@
+---
+default_apt_packages:
+  - curl
+  - software-properties-common 
+  - default-jdk 
+  - python3-pip 
+  - pkg-config 
+  - unzip 
+  - zip
+  - git
+  - build-essential
+
+apt_packages: []

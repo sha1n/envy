@@ -1,0 +1,11 @@
+---
+- name: Download Bazel Tools
+  get_url:
+    url: "{{ item.remote.darwin }}"
+    dest: "{{ item.local }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ bazel_tools | mandatory }}"
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+  - bazel
+  

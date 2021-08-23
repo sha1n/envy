@@ -1,0 +1,12 @@
+---
+- name: Install Git
+  apt:
+    pkg:
+    - git
+  become: true
+  when: 
+  - ansible_facts['machine'] == "x86_64"
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - git
+  - apt

@@ -1,0 +1,12 @@
+---
+- name: Download Bazel Tools
+  get_url:
+    url: "{{ item.remote.linux }}"
+    dest: "{{ item.local }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ bazel_tools | mandatory }}"
+  when: 
+  - ansible_facts['machine'] == "x86_64" 
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - bazel

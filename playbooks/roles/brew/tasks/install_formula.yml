@@ -9,4 +9,4 @@
     state: present
   loop: "{{ brew_formulas }}"
   tags:
-  - tools
+  - always

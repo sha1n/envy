@@ -1,12 +1,7 @@
 ---
-python_version: "3.9"
-mysql_version: "5.7"
-
 brew_taps:
   - sha1n/tap
   - homebrew/cask
-
-brew_formulas: []
 
 macos_brew_formulas:
   - make
@@ -15,16 +10,19 @@ macos_brew_formulas:
   - hyperfine
   - wget
   - watch
-  - mysql@{{ mysql_version }}
-  - mysql-client@{{ mysql_version }}
+  - mysql@{{ brew_mysql_version }}
+  - mysql-client@{{ brew_mysql_version }}
   - kubernetes-cli
-  - python@{{ python_version }}
+  - python@{{ brew_python_version }}
   - ansible-lint
   - tree
 
 linux_brew_formulas:
-  - hako
+  - gcc
   - bert
+  - wget
+  - watch
+  - tree
 
 brew_casks:
   - iterm2
@@ -39,3 +37,14 @@ brew_casks:
   - telegram
   - zoom
   - google-cloud-sdk
+
+apt_packages:
+  - curl
+  - software-properties-common 
+  - python3-pip 
+  - pkg-config 
+  - unzip 
+  - zip
+  - git
+  - build-essential
+  - default-jdk 

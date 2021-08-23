@@ -1,0 +1,10 @@
+---
+- include_tasks: apt_install.yml
+  vars:
+    apt_packages: "{{ default_apt_packages }}"
+  when:
+  - ansible_facts['machine'] == "x86_64"
+  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+  - apt
+  - ubuntu

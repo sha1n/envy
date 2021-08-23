@@ -1,5 +1,12 @@
 # envy
-An ansible based macOS development environment setup tool (limited Ubuntu support).
+This repo contains basic ansible playbooks for setting up development environments on macOS and Ubuntu (to my own preferences). 
+Ubuntu support is limited to essential tools. 
+
+Playbooks were tested with Ansible 2.11 on macOS and 2.9 on Ubuntu (see [Vagrantfile](testbox/Vagrantfile)).
+
+- [envy](#envy)
+  - [Install Ansible](#install-ansible)
+  - [Play a playbook from source](#play-a-playbook-from-source)
 
 ## Install Ansible
 **macOS**
@@ -19,13 +26,11 @@ sudo apt install -y ansible
 ansible-galaxy collection install community.general
 ```
 
-## Run from source
+## Play a playbook from source
 ```
-# run a playbook
-./playbooks/<playbook-name>.yml
-```
+# edit var files to your preferences
+vi ./vars/user.yml
 
-## Run using ansible-pull
-```
-ansible-pull -U git@github.com:sha1n/envy.git playbooks/<playbook-name>.yml
+# run a playbook
+./playbooks/dev.yml
 ```

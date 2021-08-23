@@ -6,4 +6,4 @@
   loop: "{{ brew_casks }}"
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - tools
+  - always

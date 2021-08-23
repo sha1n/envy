@@ -26,20 +26,6 @@
   tags:
   - brew
 
-# FIXME: get this out of this role
-- name: Install Build Essentials
-  apt:
-    pkg:
-    - build-essential
-  become: true
-  when: 
-  - ansible_facts['machine'] == "x86_64"
-  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
-  tags:
-  - brew
-  - build-essentials
-  - apt
-
 - name: Run Homebrew Update
   environment:
     PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"

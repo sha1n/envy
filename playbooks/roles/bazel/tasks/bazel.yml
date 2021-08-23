@@ -1,20 +1,10 @@
 ---
-- name: Download Bazel Tools (macOS)
-  get_url:
-    url: "{{ item.remote.darwin }}"
-    dest: "{{ item.local }}"
-    mode: "{{ item.mode }}"
-  with_items: "{{ bazel_tools }}"
+- include_tasks: bazel_darwin.yml
   when: ansible_facts['os_family'] == "Darwin"
   tags:
   - bazel
-  
-- name: Download Bazel Tools (Linux)
-  get_url:
-    url: "{{ item.remote.linux }}"
-    dest: "{{ item.local }}"
-    mode: "{{ item.mode }}"
-  with_items: "{{ bazel_tools }}"
+
+- include_tasks: bazel_linux.yml
   when: 
   - ansible_facts['machine'] == "x86_64" 
   - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
