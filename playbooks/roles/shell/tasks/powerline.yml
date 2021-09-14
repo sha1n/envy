@@ -1,0 +1,35 @@
+---
+- name: Check powerline fonts installed
+  find:
+    paths: "{{ ansible_env.HOME }}/Library/Fonts"
+    file_type: file
+    patterns: '.*Powerline.*.ttf'
+    use_regex: true
+  when: ansible_facts['os_family'] == "Darwin"
+  register: power_line_fonts_installed
+  tags:
+  - powerline-fonts
+  - omz
+  - zsh
+
+- name: Clone powerline fonts repo
+  git:
+    repo: git@github.com:powerline/fonts.git
+    dest: "{{ ansible_env.HOME }}/code/fonts"
+  when: 
+  - power_line_fonts_installed.files|length == 0
+  - ansible_facts['os_family'] == "Darwin"
+  tags:
+  - powerline-fonts
+  - omz
+  - zsh
+
+- name: Install powerline fonts
+  command: "{{ ansible_env.HOME }}/code/fonts/install.sh"
+  when:
+  - power_line_fonts_installed.files|length == 0
+  - ansible_facts['os_family'] == "Darwin"
+  tags:
+  - powerline-fonts
+  - omz
+  - zsh
