@@ -20,6 +20,12 @@
   - omz
   - zsh
 
+- include_tasks: powerline.yml
+  tags:
+  - powerline-fonts
+  - omz
+  - zsh
+
 - include_tasks: aliases.yml
   tags:
   - zsh
