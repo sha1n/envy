@@ -30,7 +30,7 @@
   tags:
   - zsh
 
-- include_tasks: paths.yml
+- include_tasks: exports.yml
   tags:
   - zsh
 
