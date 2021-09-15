@@ -6,7 +6,7 @@ Playbooks were tested with Ansible 2.11 on macOS and 2.9 on Ubuntu (see [Vagrant
 
 - [envy](#envy)
   - [Install Ansible](#install-ansible)
-  - [Play a playbook from source](#play-a-playbook-from-source)
+  - [Run from source](#run-from-source)
 
 ## Install Ansible
 **macOS**
@@ -26,11 +26,16 @@ sudo apt install -y ansible
 ansible-galaxy collection install community.general
 ```
 
-## Play a playbook from source
-```
-# edit var files to your preferences
-vi ./vars/user.yml
+## Run from source
 
-# run a playbook
-./playbooks/dev.yml
+```bash
+git clone git@github.com:sha1n/envy.git
+cd envy
+
+# To avoid prompts either edit 'vars/user.yml' to your preferences or use --extra-vars="<name>=<valu>" 
+
+# run a playbook straight 
+playbooks/essentials.yml
+# run selectively with tags
+playbooks/dev.yml -t vscode -t go
 ```
