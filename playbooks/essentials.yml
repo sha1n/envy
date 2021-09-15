@@ -2,16 +2,10 @@
 - hosts: localhost
   connection: local
   
-  vars_prompt:
-    - name: git_user_email
-      private: false
-      prompt: Enter your github email address
-
   roles:
+  - shell
   - brew
-  - git
 
   vars_files:
-    - "../vars/user.yml"
     - "../vars/versions.yml"
     - "../vars/essential_apps.yml"
