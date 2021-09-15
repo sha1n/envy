@@ -1,2 +1,3 @@
 ---
-git_user_name: Shai Nagar
+default_git_user_name: You
+default_git_user_email: you@email.com
