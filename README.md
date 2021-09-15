@@ -1,12 +1,13 @@
 # envy
-This repo contains basic ansible playbooks for setting up development environments on macOS and Ubuntu (to my own preferences). 
-Ubuntu support is limited to essential tools. 
+This repo contains basic ansible playbooks I use to set up development and test environments on macOS and Ubuntu.
+Ubuntu support is limited and focused on terminal configuration. I use it primarily to set up virtual test boxes.
 
 Playbooks were tested with Ansible 2.11 on macOS and 2.9 on Ubuntu (see [Vagrantfile](testbox/Vagrantfile)).
 
 - [envy](#envy)
   - [Install Ansible](#install-ansible)
-  - [Run from source](#run-from-source)
+  - [Running from source](#running-from-source)
+  - [Roles overview](#roles-overview)
 
 ## Install Ansible
 **macOS**
@@ -26,7 +27,7 @@ sudo apt install -y ansible
 ansible-galaxy collection install community.general
 ```
 
-## Run from source
+## Running from source
 
 ```bash
 git clone git@github.com:sha1n/envy.git
@@ -39,3 +40,39 @@ playbooks/essentials.yml
 # run selectively with tags
 playbooks/dev.yml -t vscode -t go
 ```
+
+## Roles overview
+The roles included in this repo are designed around my preferences and are not always properly generalized for reuse. However, in most case they can very easily be moded to serve other needs.
+
+- git
+  - installs git
+  - `.gitconfig`
+  - global ignore file
+- go (macOS)
+  - installs golang
+  - sets-up shell environment
+- nvm (macOS)
+  - installs nvm
+  - sets-up shell environment
+- brew_setup
+  - installs homebrew
+- brew
+  - generic role that installs brews and casks based on variables
+- bazel
+  - installs `bazelisk` 
+  - installs bazel build tools
+  - installs a `.bazelrc` 
+- shell 
+  - installs oh-my-zsh
+    - agnoster theme
+    - powerline fonts (macOS)
+    - installs/configures other plugins
+  - vim 
+    - .vimrc
+    - solarized.vim colors
+  - other
+    - installs and sources `~/.exports`. This is where I manage my env-var exports.
+    - installs and sources `~/.aliases`. This is where I manage my shell aliases.
+- vscode (macOS)
+  - installs vscode
+  - installs vscode plugins
