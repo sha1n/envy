@@ -2,15 +2,15 @@
 - hosts: localhost
   connection: local
   
-  vars_prompt:
-    - name: git_user_name
-      default: "{{ default_git_user_name }}"
-      private: false
-      prompt: Enter your .gitconfig username
-    - name: git_user_email
-      default: "{{ default_git_user_email }}"
-      private: false
-      prompt: Enter your .gitconfig email
+  # vars_prompt:
+  #   - name: git_user_name
+  #     default: "{{ default_git_user_name }}"
+  #     private: false
+  #     prompt: Enter your .gitconfig username
+  #   - name: git_user_email
+  #     default: "{{ default_git_user_email }}"
+  #     private: false
+  #     prompt: Enter your .gitconfig email
 
   roles:
   - shell
