@@ -63,16 +63,9 @@ The roles included in this repo are designed around my preferences and are not a
   - installs bazel build tools
   - installs a `.bazelrc` 
 - shell 
-  - installs oh-my-zsh
-    - agnoster theme
-    - powerline fonts (macOS)
-    - installs/configures other plugins
-  - vim 
-    - .vimrc
-    - solarized.vim colors
-  - other
-    - installs and sources `~/.exports`. This is where I manage my env-var exports.
-    - installs and sources `~/.aliases`. This is where I manage my shell aliases.
+  - installs my personal [zsh profile settings](https://github.com/sha1n/profile)
+  - powerline fonts (macOS)
+  - solarized.vim colors for vim
 - vscode (macOS)
   - installs vscode
   - installs vscode plugins

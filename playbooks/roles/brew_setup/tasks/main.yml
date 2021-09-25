@@ -17,7 +17,7 @@
 
 - name: Export brew to PATH
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.exports"
+    path: "{{ ansible_env.HOME }}/.zshrc"
     line: "export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin"
   when: 
   - brew_installed is defined 

@@ -19,7 +19,7 @@
 
 - name: Export NVM Home
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.exports"
+    path: "{{ ansible_env.HOME }}/.zshrc"
     line: "export NVM_DIR=\"$HOME/.nvm\""
   tags:
   - nvm

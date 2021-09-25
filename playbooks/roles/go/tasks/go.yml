@@ -20,7 +20,7 @@
 
 - name: Export Go Var
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.exports"
+    path: "{{ ansible_env.HOME }}/.zshrc"
     line: "{{ item }}"
   with_items: 
   - "export GOPATH=\"$HOME/go\""
