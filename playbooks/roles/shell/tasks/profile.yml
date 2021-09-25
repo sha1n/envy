@@ -1,0 +1,26 @@
+---
+- name: Check profile repo installed
+  find:
+    paths: "{{ ansible_env.HOME }}/code/profile"
+    file_type: file
+    patterns: '.include'
+  register: profile_repo_installed
+  tags:
+  - profile
+  - zsh
+
+- name: Clone profile repo
+  git:
+    repo: git@github.com:sha1n/profile.git
+    dest: "{{ ansible_env.HOME }}/code/profile"
+  when: profile_repo_installed.files is defined and profile_repo_installed.files|length == 0
+  tags:
+  - profile
+  - zsh
+
+- name: Install profile
+  command: "{{ ansible_env.HOME }}/code/profile/install.sh"
+  when: profile_repo_installed.files is defined and profile_repo_installed.files|length == 0
+  tags:
+  - profile
+  - zsh

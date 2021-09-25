@@ -17,15 +17,6 @@
   - omz
   - zsh
 
-# keeping it simple and installing to the default $ZSH_CUSTOM location
-- name: Install 'path-ethic' OMZ plugin
-  git:
-    repo: git@github.com:sha1n/path-ethic.git
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/path-ethic"
-  tags:
-  - omz
-  - zsh
-
 - name: Register OMZ plugins
   replace:
     path: "{{ ansible_env.HOME }}/.zshrc"
@@ -33,7 +24,6 @@
     replace: |
       plugins=(
         git 
-        path-ethic 
         history-substring-search
       )
   tags:

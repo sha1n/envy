@@ -26,15 +26,7 @@
   - omz
   - zsh
 
-- include_tasks: aliases.yml
+- include_tasks: profile.yml
   tags:
   - zsh
-
-- include_tasks: exports.yml
-  tags:
-  - zsh
-
-- include_tasks: vim.yml
-  tags:
-  - vim
 
