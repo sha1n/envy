@@ -39,31 +39,6 @@
   - omz
   - zsh
 
-- name: Check history-search keys bindings
-  lineinfile:
-    state: absent
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    regexp: '^bindkey.*history-substring-search-up$'
-  check_mode: true
-  changed_when: false
-  register: history_search_key_binding
-  tags:
-  - omz
-  - zsh
-
-- name: Bind history-search keys
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
-    line: |
-      # history-substring-search key bindings    
-      bindkey "^[[A" history-substring-search-up
-      bindkey "^[[B" history-substring-search-down
-    state: present
-  when: history_search_key_binding.found == 0
-  tags:
-  - omz
-  - zsh
-
 - name: Check prompt overridden 
   lineinfile:
     state: absent
