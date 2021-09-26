@@ -25,6 +25,7 @@ vscode_extentions:
   - Orta.vscode-jest
   - panicbit.cargo
   - rebornix.ruby
+  - redhat.ansible
   - redhat.vscode-yaml
   - rust-lang.rust
   - serayuzgur.crates
@@ -34,6 +35,5 @@ vscode_extentions:
   - vadimcn.vscode-lldb
   - wingrunr21.vscode-ruby
   - yzhang.markdown-all-in-one
-  - zbr.vscode-ansible
   - Zerotaskx.rust-extension-pack
   - zxh404.vscode-proto3
