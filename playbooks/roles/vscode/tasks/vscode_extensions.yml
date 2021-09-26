@@ -3,7 +3,11 @@
   stat:
     path: "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
   register: vscode
+  tags:
+  - vscode
 
 - name: Install VS Code Extension -> {{ item }}
   command: "'/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' --install-extension {{ item }}"
-  when: not vscode.stat.exists
+  when: vscode.stat.exists
+  tags:
+  - vscode
