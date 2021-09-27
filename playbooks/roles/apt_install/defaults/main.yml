@@ -9,5 +9,6 @@ default_apt_packages:
   - zip
   - git
   - build-essential
+  - ruby
 
 apt_packages: []
