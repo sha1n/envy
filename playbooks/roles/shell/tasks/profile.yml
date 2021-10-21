@@ -1,7 +1,8 @@
 ---
 - name: Check profile repo installed
   find:
-    paths: "{{ ansible_env.HOME }}/code/profile"
+    paths: 
+    - "{{ ansible_env.HOME }}/code/profile"
     file_type: file
     patterns: '.include'
   register: profile_repo_installed

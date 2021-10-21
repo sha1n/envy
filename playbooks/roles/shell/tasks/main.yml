@@ -15,11 +15,6 @@
   tags:
   - zsh
 
-# - include_tasks: omz.yml
-#   tags:
-#   - omz
-#   - zsh
-
 - include_tasks: powerline.yml
   tags:
   - powerline-fonts
