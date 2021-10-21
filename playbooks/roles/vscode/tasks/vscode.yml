@@ -11,7 +11,16 @@
   register: vscode_settings
   tags:
   - vscode
-  
+
+- name: Ensure VS Code Settings Path
+  file:
+    path: "{{ ansible_env.HOME }}/Library/Application Support/Code/User"
+    state: directory
+    recurse: yes
+  when: not vscode_settings.stat.exists
+  tags:
+  - vscode
+
 - name: Update VS Code settings
   copy:
     src: settings.json
