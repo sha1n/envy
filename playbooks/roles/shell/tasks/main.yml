@@ -25,3 +25,7 @@
   tags:
   - zsh
 
+- include_tasks: vim.yml
+  tags:
+  - vim
+

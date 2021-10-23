@@ -1,0 +1,28 @@
+---
+
+- name: Check solarized vim colors installed
+  stat: 
+    path: "{{ ansible_env.HOME }}/.vim/colors/solarized.vim"
+  register: solarized_vim
+  tags:
+  - vim
+
+- name: Clone git@github.com:altercation/vim-colors-solarized.git
+  git:
+    repo: git@github.com:altercation/vim-colors-solarized.git
+    dest: "{{ ansible_env.HOME }}/code/vim-colors-solarized"
+  when: solarized_vim is defined and not solarized_vim.stat.exists
+  tags:
+  - vim
+
+- name: mkdir ~/.vim/colors
+  command: "mkdir -p {{ ansible_env.HOME }}/.vim/colors"
+  when: solarized_vim is defined and not solarized_vim.stat.exists
+  tags:
+  - vim
+
+- name: Install solarized.vim
+  command: "cp {{ ansible_env.HOME }}/code/vim-colors-solarized/colors/solarized.vim {{ ansible_env.HOME }}/.vim/colors"
+  when: solarized_vim is defined and not solarized_vim.stat.exists
+  tags:
+  - vim
