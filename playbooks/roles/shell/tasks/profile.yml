@@ -19,6 +19,18 @@
   - profile
   - zsh
 
+- name: Install coreutils
+  include_role:
+    name: brew
+    tasks_from: install_formula.yml
+  vars:
+    brew_formulas:
+    - coreutils
+  when: ansible_facts['os_family'] == "Darwin"
+  tags:
+  - profile
+  - zsh
+
 - name: Install profile
   command: "{{ ansible_env.HOME }}/code/profile/install.sh"
   when: profile_repo_installed.files is defined and profile_repo_installed.files|length == 0

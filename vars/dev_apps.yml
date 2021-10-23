@@ -16,6 +16,7 @@ macos_brew_formulas:
   - python@{{ brew_python_version }}
   - ansible-lint
   - tree
+  - coreutils
 
 linux_brew_formulas:
   - gcc

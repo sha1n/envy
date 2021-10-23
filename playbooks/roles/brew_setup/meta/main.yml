@@ -1,6 +1,5 @@
 ---
 dependencies:
-  - role: shell
   - role: apt_install
     vars:
       apt_packages:

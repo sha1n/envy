@@ -4,6 +4,7 @@ brew_taps:
   - homebrew/cask
 
 macos_brew_formulas:
+  - coreutils
   - bert
   - wget
   - watch
