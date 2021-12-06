@@ -21,6 +21,7 @@ macos_brew_formulas:
   - python@{{ brew_python_version }}
   - ansible-lint
   - tree
+  - jq
 
 linux_brew_formulas:
   - gcc

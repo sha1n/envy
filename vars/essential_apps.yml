@@ -10,6 +10,7 @@ macos_brew_formulas:
   - watch
   - tree
   - python@{{ brew_python_version }}
+  - jq
 
 linux_brew_formulas:
   - gcc

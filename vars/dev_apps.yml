@@ -17,6 +17,7 @@ macos_brew_formulas:
   - ansible-lint
   - tree
   - coreutils
+  - jq
 
 linux_brew_formulas:
   - gcc
