@@ -10,14 +10,17 @@ macos_brew_formulas:
   - hyperfine
   - wget
   - watch
-  - mysql@{{ brew_mysql_version }}
-  - mysql-client@{{ brew_mysql_version }}
+  # - mysql@{{ brew_mysql_version }}
+  # - mysql-client@{{ brew_mysql_version }}
   - kubernetes-cli
-  - python@{{ brew_python_version }}
+  # - python@{{ brew_python_version }}
   - ansible-lint
   - tree
-  - coreutils
   - jq
+  - coreutils
+  - librdkafka
+  - postgresql
+  - openjdk@{{ openjdk_version }}
 
 linux_brew_formulas:
   - gcc
@@ -30,15 +33,16 @@ brew_casks:
   - iterm2
   - google-chrome
   - sublime-text
-  - intellij-idea
-  - mysqlworkbench
+  - intellij-idea-ce
+  - pycharm-ce
+  # - mysqlworkbench
   - docker
-  - virtualbox
-  - vagrant
+  # - virtualbox
+  # - vagrant
   - slack
   - telegram
   - zoom
-  - google-cloud-sdk
+  # - google-cloud-sdk
 
 apt_packages:
   - curl
