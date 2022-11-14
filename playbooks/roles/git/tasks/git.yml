@@ -12,16 +12,18 @@
   - git
   - apt
 
-- name: Install GitHub client
+- name: Install GitHub/Lab client
   include_role:
     name: brew
     tasks_from: install_formula.yml
   vars:
     brew_formulas:
     - gh
+    - glab
   tags:
   - git
   - gh
+  - glab
 
 
 - name: Check .gitignore_global presence
