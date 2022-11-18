@@ -17,6 +17,7 @@ macos_brew_formulas:
   - ansible-lint
   - tree
   - jq
+  - bat
   - coreutils
   - librdkafka
   - postgresql

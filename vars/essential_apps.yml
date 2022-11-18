@@ -11,6 +11,7 @@ macos_brew_formulas:
   - tree
   - python@{{ brew_python_version }}
   - jq
+  - bat
 
 linux_brew_formulas:
   - gcc
