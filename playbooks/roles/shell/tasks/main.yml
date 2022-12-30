@@ -29,3 +29,7 @@
   tags:
   - vim
 
+- include_tasks: fzf.yml
+  tags:
+  - fzf
+

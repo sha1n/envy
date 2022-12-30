@@ -1,0 +1,22 @@
+---
+- name: Install fzf
+  include_role:
+    name: brew
+    tasks_from: install_formula.yml
+  vars:
+    brew_formulas:
+    - fzf
+  when: 
+  - ansible_facts['os_family'] == "Darwin"
+  tags:
+  - fzf
+  - zsh
+
+- name: Install fzf bindings
+  command: "zsh -c \"$(brew --prefix)/opt/fzf/install\""
+  when: 
+  - ansible_facts['os_family'] == "Darwin"
+  tags:
+  - fzf
+  - zsh
+
