@@ -11,6 +11,7 @@ brew_formulas: []
 
 macos_brew_formulas:
   - make
+  - vim
   - hako
   - bert
   - hyperfine

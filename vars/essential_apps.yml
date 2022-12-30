@@ -12,6 +12,7 @@ macos_brew_formulas:
   - python@{{ brew_python_version }}
   - jq
   - bat
+  - vim
 
 linux_brew_formulas:
   - gcc
