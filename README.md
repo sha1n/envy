@@ -65,7 +65,9 @@ The roles included in this repo are designed around my preferences and are not a
 - shell 
   - installs my personal [zsh profile settings](https://github.com/sha1n/profile)
   - powerline fonts (macOS)
-  - solarized.vim colors for vim
+  - vim + solarized.vim colors (macOS)
+  - basic nvim setup (macOS)
+  - fzf (macOS)
 - vscode (macOS)
   - installs vscode
   - installs vscode plugins
