@@ -1,0 +1,39 @@
+---
+- name: Install nvim
+  include_role:
+    name: brew
+    tasks_from: install_formula.yml
+  vars:
+    brew_formulas:
+    - nvim
+  when: 
+  - ansible_facts['os_family'] == "Darwin"
+  tags:
+  - nvim
+
+- name: Check nvim init installed
+  stat: 
+    path: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
+  register: kickstart_nvim
+  tags:
+  - nvim
+
+- name: Clone git@github.com:nvim-lua/kickstart.nvim.git
+  git:
+    repo: git@github.com:nvim-lua/kickstart.nvim.git
+    dest: "{{ ansible_env.HOME }}/code/kickstart.nvim"
+  when: kickstart_nvim is defined and not kickstart_nvim.stat.exists
+  tags:
+  - nvim
+
+- name: mkdir ~/.config/nvim/
+  command: "mkdir -p {{ ansible_env.HOME }}/.config/nvim/"
+  when: kickstart_nvim is defined and not kickstart_nvim.stat.exists
+  tags:
+  - nvim
+
+- name: Install solarized.vim
+  command: "ln -s {{ ansible_env.HOME }}/code/kickstart.nvim/init.lua {{ ansible_env.HOME }}/.config/nvim/init.lua "
+  when: kickstart_nvim is defined and not kickstart_nvim.stat.exists
+  tags:
+  - nvim

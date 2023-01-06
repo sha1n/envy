@@ -29,6 +29,10 @@
   tags:
   - vim
 
+- include_tasks: nvim.yml
+  tags:
+  - nvim
+
 - include_tasks: fzf.yml
   tags:
   - fzf
