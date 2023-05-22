@@ -13,6 +13,7 @@ macos_brew_formulas:
   - jq
   - bat
   - vim
+  - gnu-time
 
 linux_brew_formulas:
   - gcc

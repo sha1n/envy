@@ -10,6 +10,7 @@ macos_brew_formulas:
   - hyperfine
   - wget
   - watch
+  - gnu-time
   # - mysql@{{ brew_mysql_version }}
   # - mysql-client@{{ brew_mysql_version }}
   - kubernetes-cli
