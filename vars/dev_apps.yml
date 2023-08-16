@@ -2,6 +2,7 @@
 brew_taps:
   - sha1n/tap
   - homebrew/cask
+  - homebrew/core
 
 macos_brew_formulas:
   - make
@@ -11,10 +12,8 @@ macos_brew_formulas:
   - wget
   - watch
   - gnu-time
-  # - mysql@{{ brew_mysql_version }}
-  # - mysql-client@{{ brew_mysql_version }}
-  - kubernetes-cli
-  # - python@{{ brew_python_version }}
+  - python@{{ brew_python_version }}
+  - poetry
   - ansible-lint
   - tree
   - jq
@@ -23,6 +22,9 @@ macos_brew_formulas:
   - librdkafka
   - postgresql
   - openjdk@{{ openjdk_version }}
+  - minikube
+  # - mysql@{{ brew_mysql_version }}
+  # - mysql-client@{{ brew_mysql_version }}
 
 linux_brew_formulas:
   - gcc
@@ -37,14 +39,14 @@ brew_casks:
   - sublime-text
   - intellij-idea-ce
   - pycharm-ce
-  # - mysqlworkbench
   - docker
-  # - virtualbox
-  # - vagrant
   - slack
   - telegram
   - zoom
   # - google-cloud-sdk
+  # - mysqlworkbench
+  # - virtualbox
+  # - vagrant
 
 apt_packages:
   - curl

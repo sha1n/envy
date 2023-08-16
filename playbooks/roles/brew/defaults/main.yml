@@ -1,11 +1,12 @@
 ---
-# brew_python_version: "3.9"
+brew_python_version: "3.10"
 brew_mysql_version: "5.7"
 openjdk_version: "17"
 
 brew_taps:
   - sha1n/tap
   - homebrew/cask
+  - homebrew/core
 
 brew_formulas: []
 
@@ -17,16 +18,18 @@ macos_brew_formulas:
   - hyperfine
   - wget
   - watch
-  # - mysql@{{ brew_mysql_version }}
-  # - mysql-client@{{ brew_mysql_version }}
   - kubernetes-cli
-  # - python@{{ brew_python_version }}
+  - python@{{ brew_python_version }}
+  - poetry
   - ansible-lint
   - tree
   - jq
   - gnu-time
   - librdkafka
   - postgresql
+  - minikube
+  # - mysql@{{ brew_mysql_version }}
+  # - mysql-client@{{ brew_mysql_version }}
 
 linux_brew_formulas:
   - gcc
@@ -37,11 +40,11 @@ brew_casks:
   - sublime-text
   - intellij-idea-ce
   - pycharm-ce
-  # - mysqlworkbench
   - docker
-  # - virtualbox
-  # - vagrant
   - slack
   - telegram
   - zoom
   # - google-cloud-sdk
+  # - mysqlworkbench
+  # - virtualbox
+  # - vagrant
