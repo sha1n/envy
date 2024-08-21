@@ -23,7 +23,8 @@ linux_brew_formulas:
   - tree
 
 brew_casks:
-  - iterm2
+  # - iterm2
+  - warp
   - google-chrome
   - sublime-text
   - telegram
