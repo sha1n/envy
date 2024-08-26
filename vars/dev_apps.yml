@@ -1,14 +1,14 @@
 ---
 brew_taps:
   - sha1n/tap
-  - homebrew/cask
-  - homebrew/core
+  # - homebrew/cask
+  # - homebrew/core
 
 macos_brew_formulas:
   - make
   - hako
   - bert
-  - hyperfine
+  # - hyperfine
   - wget
   - watch
   - gnu-time
@@ -34,7 +34,8 @@ linux_brew_formulas:
   - tree
 
 brew_casks:
-  - iterm2
+  # - iterm2
+  - warp
   - google-chrome
   - sublime-text
   - intellij-idea-ce

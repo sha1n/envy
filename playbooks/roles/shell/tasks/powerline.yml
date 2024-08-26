@@ -9,7 +9,6 @@
   register: power_line_fonts_installed
   tags:
   - powerline-fonts
-  - omz
   - zsh
 
 - name: Clone powerline fonts repo
@@ -19,7 +18,6 @@
   when: power_line_fonts_installed.files is defined and power_line_fonts_installed.files|length == 0
   tags:
   - powerline-fonts
-  - omz
   - zsh
 
 - name: Install powerline fonts
@@ -27,5 +25,4 @@
   when: power_line_fonts_installed.files is defined and power_line_fonts_installed.files|length == 0
   tags:
   - powerline-fonts
-  - omz
   - zsh
