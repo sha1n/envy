@@ -12,19 +12,21 @@ macos_brew_formulas:
   - wget
   - watch
   - gnu-time
-  - python@{{ brew_python_version }}
-  - poetry
   - ansible-lint
   - tree
   - jq
   - bat
   - coreutils
-  - librdkafka
-  - postgresql
-  - openjdk@{{ openjdk_version }}
+  # - librdkafka
+  # - postgresql
   - minikube
   # - mysql@{{ brew_mysql_version }}
   # - mysql-client@{{ brew_mysql_version }}
+  - openjdk@{{ openjdk_version }}
+  - pipx
+  - poetry
+  - python@3.10
+  - python@{{ brew_python_version }}
 
 linux_brew_formulas:
   - gcc
@@ -34,12 +36,12 @@ linux_brew_formulas:
   - tree
 
 brew_casks:
-  # - iterm2
+  - iterm2
   - warp
   - google-chrome
   - sublime-text
   - intellij-idea-ce
-  - pycharm-ce
+  - pycharm
   - docker
   - slack
   - telegram
