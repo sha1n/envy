@@ -1,3 +1,4 @@
 ---
-brew_python_version: "3.11"
+brew_python_version: "3.12"
 brew_mysql_version: "5.7"
+openjdk_version: "17"
