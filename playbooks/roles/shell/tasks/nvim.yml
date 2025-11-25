@@ -18,7 +18,7 @@
   tags:
   - nvim
 
-- name: Clone git@github.com:nvim-lua/kickstart.nvim.git
+- name: Clone git@github.com:sha1n/kickstart.nvim.git
   git:
     repo: git@github.com:sha1n/kickstart.nvim.git
     dest: "{{ ansible_env.HOME }}/code/kickstart.nvim"
