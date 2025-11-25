@@ -1,12 +1,12 @@
 ---
 - name: Install Git Tools
-  include_role:
+  ansible.builtin.include_role:
     name: brew
     tasks_from: install_formula.yml
   when: ansible_facts['os_family'] == "Darwin"
   vars:
     brew_formulas:
-    - git
+      - git
   tags:
-  - git
-  - gh
+    - git
+    - gh

@@ -1,14 +1,14 @@
 ---
-default_apt_packages:
+apt_install_default_apt_packages:
   - curl
-  - software-properties-common 
-  - default-jdk 
-  - python3-pip 
-  - pkg-config 
-  - unzip 
+  - software-properties-common
+  - default-jdk
+  - python3-pip
+  - pkg-config
+  - unzip
   - zip
   - git
   - build-essential
   - ruby
 
-apt_packages: []
+apt_install_apt_packages: []

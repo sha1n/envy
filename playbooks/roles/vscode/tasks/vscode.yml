@@ -6,30 +6,32 @@
   - vscode
 
 - name: Check VS Code Settings Presence
-  stat:
-    path: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/settings.json"
+  ansible.builtin.stat:
+    path: '{{ ansible_facts["env"]["HOME"] }}/Library/Application Support/Code/User/settings.json'
   register: vscode_settings
   tags:
-  - vscode
+    - vscode
 
 - name: Ensure VS Code Settings Path
-  file:
-    path: "{{ ansible_env.HOME }}/Library/Application Support/Code/User"
+  ansible.builtin.file:
+    path: '{{ ansible_facts["env"]["HOME"] }}/Library/Application Support/Code/User'
     state: directory
-    recurse: yes
+    recurse: true
   when: not vscode_settings.stat.exists
   tags:
-  - vscode
+    - vscode
 
-- name: Update VS Code settings
-  copy:
+- name: Update VS Code Settings
+  ansible.builtin.copy:
     src: settings.json
-    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/settings.json"
+    dest: '{{ ansible_facts["env"]["HOME"] }}/Library/Application Support/Code/User/settings.json'
+    mode: "0644"
   when: not vscode_settings.stat.exists
   tags:
-  - vscode
+    - vscode
 
-- include_tasks: vscode_extensions.yml
-  loop: "{{ vscode_extentions }}"
+- name: Include vscode_extensions.yml
+  ansible.builtin.include_tasks: vscode_extensions.yml
+  loop: "{{ vscode_extensions }}"
   tags:
-  - vscode
+    - vscode

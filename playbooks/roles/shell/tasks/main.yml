@@ -1,38 +1,42 @@
 ---
-# create a directory if it doesn't exist
-- name: Create ~/.local/bin
-  file:
-    path: "{{ ansible_env.HOME }}/.local/bin"
+- name: Create ~/.local/bin directory
+  ansible.builtin.file:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.local/bin'
     state: directory
-    mode: 0755
+    mode: "0755"
   tags:
-  - zsh
+    - zsh
 
-- include_tasks: zsh.yml
+- name: Include Zsh tasks
+  ansible.builtin.include_tasks: zsh.yml
   when:
-  - ansible_facts['machine'] == "x86_64" 
-  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+    - ansible_facts['machine'] == "x86_64"
+    - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
   tags:
-  - zsh
+    - zsh
 
-- include_tasks: powerline.yml
+- name: Include Powerline tasks
+  ansible.builtin.include_tasks: powerline.yml
   tags:
-  - powerline-fonts
-  - zsh
+    - powerline-fonts
+    - zsh
 
-- include_tasks: profile.yml
+- name: Include Profile tasks
+  ansible.builtin.include_tasks: profile.yml
   tags:
-  - zsh
+    - zsh
 
-- include_tasks: vim.yml
+- name: Include Vim tasks
+  ansible.builtin.include_tasks: vim.yml
   tags:
-  - vim
+    - vim
 
-- include_tasks: nvim.yml
+- name: Include Nvim tasks
+  ansible.builtin.include_tasks: nvim.yml
   tags:
-  - nvim
+    - nvim
 
-- include_tasks: fzf.yml
+- name: Include Fzf tasks
+  ansible.builtin.include_tasks: fzf.yml
   tags:
-  - fzf
-
+    - fzf

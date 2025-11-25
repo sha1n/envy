@@ -1,5 +1,6 @@
 ---
-- include_tasks: vscode.yml
+- name: Include VSCode tasks
+  ansible.builtin.include_tasks: vscode.yml
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - vscode
+    - vscode

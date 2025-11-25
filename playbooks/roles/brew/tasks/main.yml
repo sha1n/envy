@@ -1,39 +1,43 @@
 ---
-- name: Tap a Homebrew repository
+- name: Tap Homebrew repositories
   # FIXME this is not very elegant. Separate Ubuntu from macOS?
   environment:
-    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
+    PATH: '{{ ansible_facts["env"]["PATH"] }}:/home/linuxbrew/.linuxbrew/bin'
   community.general.homebrew_tap:
     name: "{{ item }}"
-    state: present 
+    state: present
   loop: "{{ brew_taps }}"
   tags:
-  - brew
+    - brew
 
-- include_tasks: install_formula.yml
+- name: Install Homebrew formulas for macOS
+  ansible.builtin.include_tasks: install_formula.yml
   vars:
     brew_formulas: "{{ macos_brew_formulas }}"
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - brew
+    - brew
 
-- include_tasks: install_formula.yml
+- name: Install Homebrew formulas for Linux
+  ansible.builtin.include_tasks: install_formula.yml
   vars:
     brew_formulas: "{{ linux_brew_formulas }}"
-  when: 
-  - ansible_facts['machine'] == "x86_64" 
-  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  when:
+    - ansible_facts['machine'] == "x86_64"
+    - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
   tags:
-  - brew
+    - brew
 
-- include_tasks: install_cask.yml
+- name: Install Homebrew casks
+  ansible.builtin.include_tasks: install_cask.yml
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - brew
+    - brew
 
-- name: Run Homebrew Cleanup
+- name: Run Homebrew cleanup
   environment:
-    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
-  command: brew cleanup
+    PATH: '{{ ansible_facts["env"]["PATH"] }}:/home/linuxbrew/.linuxbrew/bin'
+  ansible.builtin.command: brew cleanup
+  changed_when: false
   tags:
-  - brew
+    - brew

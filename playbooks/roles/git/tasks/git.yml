@@ -1,59 +1,60 @@
 ---
-- include_tasks: install_git_darwin.yml
+- name: Include install_git_darwin.yml tasks
+  ansible.builtin.include_tasks: install_git_darwin.yml
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - git
+    - git
 
-- include_tasks: install_git_ubuntu.yml
-  when: 
-  - ansible_facts['machine'] == "x86_64"
-  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+- name: Include install_git_ubuntu.yml tasks
+  ansible.builtin.include_tasks: install_git_ubuntu.yml
+  when:
+    - ansible_facts['machine'] == "x86_64"
+    - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
   tags:
-  - git
-  - apt
+    - git
+    - apt
 
-- name: Install GitHub/Lab client
-  include_role:
+- name: Install GitHub and GitLab clients
+  ansible.builtin.include_role:
     name: brew
     tasks_from: install_formula.yml
   vars:
     brew_formulas:
+      - gh
+      - glab
+  tags:
+    - git
     - gh
     - glab
-  tags:
-  - git
-  - gh
-  - glab
 
-
-- name: Check .gitignore_global presence
-  stat:
-    path: "{{ ansible_env.HOME }}/.gitignore_global"
-  register: gitignore_global
+- name: Check if .gitignore_global exists
+  ansible.builtin.stat:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.gitignore_global'
+  register: git_gitignore_global
   tags:
-  - git
+    - git
 
 - name: Create .gitignore_global file
-  copy:
+  ansible.builtin.copy:
     src: .gitignore_global
-    dest: "{{ ansible_env.HOME }}/.gitignore_global"
+    dest: '{{ ansible_facts["env"]["HOME"] }}/.gitignore_global'
     mode: "0644"
-  when: not gitignore_global.stat.exists
+  when: not git_gitignore_global.stat.exists
   tags:
-  - git
+    - git
 
-- name: Check .gitconfig presence
-  stat:
-    path: "{{ ansible_env.HOME }}/.gitconfig"
-  register: gitconfig
+- name: Check if .gitconfig exists
+  ansible.builtin.stat:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.gitconfig'
+  register: git_gitconfig
   tags:
-  - git
+    - git
 
-- name: Configure git (creates ~/.gitconfig)
+- name: Configure git and create .gitconfig
   ansible.builtin.template:
     src: .gitconfig.j2
-    dest: "{{ ansible_env.HOME }}/.gitconfig"
+    dest: '{{ ansible_facts["env"]["HOME"] }}/.gitconfig'
     mode: "0644"
-  when: not gitconfig.stat.exists
+  when: not git_gitconfig.stat.exists
   tags:
-  - git
+    - git

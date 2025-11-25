@@ -1,39 +1,43 @@
 ---
-- name: Check profile repo installed
-  find:
-    paths: 
-    - "{{ ansible_env.HOME }}/code/profile"
+- name: Check if profile repository is installed
+  ansible.builtin.find:
+    paths:
+      - '{{ ansible_facts["env"]["HOME"] }}/code/profile'
     file_type: file
-    patterns: '.include'
-  register: profile_repo_installed
+    patterns: ".include"
+  register: shell_profile_repo_installed
   tags:
-  - profile
-  - zsh
+    - profile
+    - zsh
 
-- name: Clone profile repo
-  git:
+# WARNING: This git task may not be fully idempotent if the remote changes.
+# We accept this risk for this playbook.
+- name: Clone profile repository
+  ansible.builtin.git:
     repo: git@github.com:sha1n/profile.git
-    dest: "{{ ansible_env.HOME }}/code/profile"
-  when: profile_repo_installed.files is defined and profile_repo_installed.files|length == 0
+    dest: '{{ ansible_facts["env"]["HOME"] }}/code/profile'
+    update: false
+  when: shell_profile_repo_installed.files is defined and shell_profile_repo_installed.files|length == 0
   tags:
-  - profile
-  - zsh
+    - profile
+    - zsh
 
 - name: Install coreutils
-  include_role:
+  ansible.builtin.include_role:
     name: brew
     tasks_from: install_formula.yml
   vars:
     brew_formulas:
-    - coreutils
+      - coreutils
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - profile
-  - zsh
+    - profile
+    - zsh
 
 - name: Install profile
-  command: "{{ ansible_env.HOME }}/code/profile/install.sh"
-  when: profile_repo_installed.files is defined and profile_repo_installed.files|length == 0
+  ansible.builtin.command: '{{ ansible_facts["env"]["HOME"] }}/code/profile/install.sh'
+  when: shell_profile_repo_installed.files is defined and shell_profile_repo_installed.files|length == 0
+  changed_when: false
   tags:
-  - profile
-  - zsh
+    - profile
+    - zsh

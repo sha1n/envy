@@ -1,39 +1,44 @@
 ---
-- name: Install nvim
-  include_role:
+- name: Install Neovim using Homebrew
+  ansible.builtin.include_role:
     name: brew
     tasks_from: install_formula.yml
   vars:
     brew_formulas:
+      - nvim
+  when:
+    - ansible_facts['os_family'] == "Darwin"
+  tags:
     - nvim
-  when: 
-  - ansible_facts['os_family'] == "Darwin"
-  tags:
-  - nvim
 
-- name: Check nvim init installed
-  stat: 
-    path: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
-  register: kickstart_nvim
+- name: Check if Neovim init.lua is installed
+  ansible.builtin.stat:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.config/nvim/init.lua'
+  register: shell_kickstart_nvim
   tags:
-  - nvim
+    - nvim
 
-- name: Clone git@github.com:sha1n/kickstart.nvim.git
-  git:
+# WARNING: This git task may not be fully idempotent if the remote changes.
+# We accept this risk for this playbook.
+- name: Clone kickstart.nvim repository
+  ansible.builtin.git:
     repo: git@github.com:sha1n/kickstart.nvim.git
-    dest: "{{ ansible_env.HOME }}/code/kickstart.nvim"
-  when: kickstart_nvim is defined and not kickstart_nvim.stat.exists
+    dest: '{{ ansible_facts["env"]["HOME"] }}/code/kickstart.nvim'
+    update: false
+  when: shell_kickstart_nvim is defined and not shell_kickstart_nvim.stat.exists
   tags:
-  - nvim
+    - nvim
 
-- name: mkdir ~/.config/nvim/
-  command: "mkdir -p {{ ansible_env.HOME }}/.config/nvim/"
-  when: kickstart_nvim is defined and not kickstart_nvim.stat.exists
+- name: Create Neovim config directory
+  ansible.builtin.command: 'mkdir -p {{ ansible_facts["env"]["HOME"] }}/.config/nvim/'
+  when: shell_kickstart_nvim is defined and not shell_kickstart_nvim.stat.exists
+  changed_when: false
   tags:
-  - nvim
+    - nvim
 
-- name: Install kickstart_nvim init.lua
-  command: "ln -s {{ ansible_env.HOME }}/code/kickstart.nvim/init.lua {{ ansible_env.HOME }}/.config/nvim/init.lua "
-  when: kickstart_nvim is defined and not kickstart_nvim.stat.exists
+- name: Install kickstart.nvim init.lua
+  ansible.builtin.command: 'ln -s {{ ansible_facts["env"]["HOME"] }}/code/kickstart.nvim/init.lua {{ ansible_facts["env"]["HOME"] }}/.config/nvim/init.lua'
+  when: shell_kickstart_nvim is defined and not shell_kickstart_nvim.stat.exists
+  changed_when: false
   tags:
-  - nvim
+    - nvim

@@ -1,7 +1,7 @@
 ---
 brew_taps:
   - sha1n/tap
-  - homebrew/cask
+  # - homebrew/cask
 
 macos_brew_formulas:
   - coreutils
@@ -28,14 +28,14 @@ brew_casks:
   - warp
   - google-chrome
   - sublime-text
-  - telegram
+  # - telegram
 
 apt_packages:
   - curl
-  - software-properties-common 
-  - python3-pip 
-  - pkg-config 
-  - unzip 
+  - software-properties-common
+  - python3-pip
+  - pkg-config
+  - unzip
   - zip
   - git
   - build-essential

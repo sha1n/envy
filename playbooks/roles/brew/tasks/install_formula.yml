@@ -1,12 +1,12 @@
 ---
-- name: Install Homebrew Formula
+- name: Install Homebrew formula
   # FIXME this is not very elegant. Separate Ubuntu from macOS?
   environment:
-    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
-  homebrew:
+    PATH: '{{ ansible_facts["env"]["PATH"] }}:/home/linuxbrew/.linuxbrew/bin'
+  community.general.homebrew:
     update_homebrew: false
     name: "{{ item }}"
     state: present
   loop: "{{ brew_formulas }}"
   tags:
-  - always
+    - always

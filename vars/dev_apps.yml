@@ -22,7 +22,7 @@ macos_brew_formulas:
   - coreutils
   - librdkafka
   - postgresql
-  - openjdk@{{ openjdk_version }}
+  - openjdk@{{ brew_openjdk_version }}
   - minikube
   # - mysql@{{ brew_mysql_version }}
   # - mysql-client@{{ brew_mysql_version }}
@@ -43,8 +43,8 @@ brew_casks:
   - pycharm-ce
   - docker
   - slack
-  - telegram
-  - zoom
+  # - telegram
+  # - zoom
   # - google-cloud-sdk
   # - mysqlworkbench
   # - virtualbox
@@ -52,12 +52,12 @@ brew_casks:
 
 apt_packages:
   - curl
-  - software-properties-common 
-  - python3-pip 
-  - pkg-config 
-  - unzip 
+  - software-properties-common
+  - python3-pip
+  - pkg-config
+  - unzip
   - zip
   - git
   - build-essential
-  - default-jdk 
+  - default-jdk
   - ruby

@@ -1,35 +1,36 @@
 ---
-- name: Check brew exists
+- name: Check if Homebrew exists
   # FIXME: figure out a more accurate way of doing it so we can run the play again without logging out
-  shell: "which brew"
-  register: which_brew
+  ansible.builtin.command: "which brew"
+  register: brew_setup_which_brew
   changed_when: false
   ignore_errors: true
   tags:
-  - brew
+    - brew
 
 - name: Install Homebrew
-  shell: "bash -c 'set -o pipefail && curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash'"
-  register: brew_installed
-  when: which_brew.rc != 0
+  ansible.builtin.shell: "set -o pipefail && curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash"
+  register: brew_setup_brew_installed
+  when: brew_setup_which_brew.rc != 0
+  changed_when: false
   tags:
-  - brew
+    - brew
 
-- name: Export brew to PATH
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+- name: Export Homebrew to PATH
+  ansible.builtin.lineinfile:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.zshrc'
     line: "export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin"
-  when: 
-  - brew_installed is defined 
-  - brew_installed.rc is defined
-  - brew_installed.rc == 0
+  when:
+    - brew_setup_brew_installed is defined
+    - brew_setup_brew_installed.rc is defined
+    - brew_setup_brew_installed.rc == 0
   tags:
-  - brew
+    - brew
 
-- name: Run Homebrew Update
+- name: Run Homebrew update
   environment:
-    PATH: "{{ ansible_env.PATH }}:/home/linuxbrew/.linuxbrew/bin"
-  homebrew:
+    PATH: '{{ ansible_facts["env"]["PATH"] }}:/home/linuxbrew/.linuxbrew/bin'
+  community.general.homebrew:
     update_homebrew: true
   tags:
-  - brew
+    - brew

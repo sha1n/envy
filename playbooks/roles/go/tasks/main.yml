@@ -1,5 +1,6 @@
 ---
-- include_tasks: go.yml
+- name: Include Go tasks
+  ansible.builtin.include_tasks: go.yml
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - go
+    - go

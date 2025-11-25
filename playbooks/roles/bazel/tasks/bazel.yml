@@ -1,28 +1,30 @@
 ---
-- include_tasks: bazel_darwin.yml
+- name: Include Bazel Darwin tasks
+  ansible.builtin.include_tasks: bazel_darwin.yml
   when: ansible_facts['os_family'] == "Darwin"
   tags:
-  - bazel
+    - bazel
 
-- include_tasks: bazel_linux.yml
-  when: 
-  - ansible_facts['machine'] == "x86_64" 
-  - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+- name: Include Bazel Linux tasks
+  ansible.builtin.include_tasks: bazel_linux.yml
+  when:
+    - ansible_facts['machine'] == "x86_64"
+    - ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
   tags:
-  - bazel
+    - bazel
 
-- name: Check .bazelrc Presence
-  stat:
-    path: "{{ ansible_env.HOME }}/.bazelrc"
-  register: bazelrc
+- name: Check for .bazelrc file
+  ansible.builtin.stat:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.bazelrc'
+  register: bazel_bazelrc
   tags:
-  - bazel
+    - bazel
 
-- name: Create .bazelrc file
-  copy:
+- name: Create .bazelrc file if missing
+  ansible.builtin.copy:
     src: .bazelrc
-    dest: "{{ ansible_env.HOME }}/.bazelrc"
+    dest: '{{ ansible_facts["env"]["HOME"] }}/.bazelrc'
     mode: "0644"
-  when: not bazelrc.stat.exists
+  when: not bazel_bazelrc.stat.exists
   tags:
-  - bazel
+    - bazel

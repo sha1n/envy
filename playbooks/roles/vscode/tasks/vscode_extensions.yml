@@ -1,13 +1,14 @@
 ---
-- name: Check VS Code Presence
-  stat:
+- name: Check if VS Code 'code' command exists
+  ansible.builtin.stat:
     path: "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-  register: vscode
+  register: vscode_vscode
   tags:
-  - vscode
+    - vscode
 
 - name: Install VS Code Extension -> {{ item }}
-  command: "'/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' --install-extension {{ item }}"
-  when: vscode.stat.exists
+  ansible.builtin.command: "'/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code' --install-extension {{ item }} --force"
+  when: vscode_vscode.stat.exists
+  changed_when: false
   tags:
-  - vscode
+    - vscode

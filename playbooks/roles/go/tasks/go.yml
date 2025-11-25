@@ -1,29 +1,29 @@
 ---
-- name: Install Go tools
-  include_role:
+- name: Install Go tools using Homebrew
+  ansible.builtin.include_role:
     name: brew
     tasks_from: install_formula.yml
   vars:
     brew_formulas:
-    - go
-    - goreleaser
+      - go
+      - goreleaser
   tags:
-  - go
+    - go
 
-- name: Creates Go home directory
-  file:
-    path: "{{ ansible_env.HOME }}/go"
+- name: Create Go home directory
+  ansible.builtin.file:
+    path: '{{ ansible_facts["env"]["HOME"] }}/go'
     mode: "0755"
     state: directory
   tags:
-  - go
+    - go
 
-- name: Export Go Var
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+- name: Export Go environment variables to .zshrc
+  ansible.builtin.lineinfile:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.zshrc'
     line: "{{ item }}"
-  with_items: 
-  - "export GOPATH=\"$HOME/go\""
-  - "export PATH=\"$GOPATH/bin:$PATH\""
+  with_items:
+    - "export GOPATH=\"$HOME/go\""
+    - "export PATH=\"$GOPATH/bin:$PATH\""
   tags:
-  - go
+    - go

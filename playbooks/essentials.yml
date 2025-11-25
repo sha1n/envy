@@ -1,10 +1,12 @@
 #!/usr/bin/env ansible-playbook
-- hosts: localhost
+---
+- name: Essentials
+  hosts: localhost
   connection: local
-  
+
   roles:
-  - shell
-  - brew
+    - shell
+    - brew
 
   vars_files:
     - "../vars/versions.yml"

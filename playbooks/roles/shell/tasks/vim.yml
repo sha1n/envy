@@ -1,28 +1,31 @@
 ---
-
-- name: Check solarized vim colors installed
-  stat: 
-    path: "{{ ansible_env.HOME }}/.vim/colors/solarized.vim"
-  register: solarized_vim
+- name: Check if Solarized Vim colors are installed
+  ansible.builtin.stat:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.vim/colors/solarized.vim'
+  register: shell_solarized_vim
   tags:
-  - vim
+    - vim
 
-- name: Clone git@github.com:altercation/vim-colors-solarized.git
-  git:
+# WARNING: This git task may not be fully idempotent if the remote changes.
+# We accept this risk for this playbook.
+- name: Clone vim-colors-solarized repository
+  ansible.builtin.git:
     repo: git@github.com:altercation/vim-colors-solarized.git
-    dest: "{{ ansible_env.HOME }}/code/vim-colors-solarized"
-  when: solarized_vim is defined and not solarized_vim.stat.exists
+    dest: '{{ ansible_facts["env"]["HOME"] }}/code/vim-colors-solarized'
+    update: false
+  when: shell_solarized_vim is defined and not shell_solarized_vim.stat.exists
   tags:
-  - vim
+    - vim
 
-- name: mkdir ~/.vim/colors
-  command: "mkdir -p {{ ansible_env.HOME }}/.vim/colors"
-  when: solarized_vim is defined and not solarized_vim.stat.exists
+- name: Create Vim colors directory
+  ansible.builtin.command: 'mkdir -p {{ ansible_facts["env"]["HOME"] }}/.vim/colors'
+  when: shell_solarized_vim is defined and not shell_solarized_vim.stat.exists
+  changed_when: false
   tags:
-  - vim
-
-- name: Install solarized.vim
-  command: "cp {{ ansible_env.HOME }}/code/vim-colors-solarized/colors/solarized.vim {{ ansible_env.HOME }}/.vim/colors"
-  when: solarized_vim is defined and not solarized_vim.stat.exists
+    - vim
+- name: Install Solarized Vim color scheme
+  ansible.builtin.command: 'cp {{ ansible_facts["env"]["HOME"] }}/code/vim-colors-solarized/colors/solarized.vim {{ ansible_facts["env"]["HOME"] }}/.vim/colors'
+  when: shell_solarized_vim is defined and not shell_solarized_vim.stat.exists
+  changed_when: false
   tags:
-  - vim
+    - vim

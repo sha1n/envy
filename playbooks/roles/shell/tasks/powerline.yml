@@ -1,28 +1,32 @@
 ---
-- name: Check powerline fonts installed
-  find:
-    paths: "{{ ansible_env.HOME }}/Library/Fonts"
+- name: Check if Powerline fonts are installed
+  ansible.builtin.find:
+    paths: '{{ ansible_facts["env"]["HOME"] }}/Library/Fonts'
     file_type: file
-    patterns: '.*Powerline.*.ttf'
+    patterns: ".*Powerline.*.ttf"
     use_regex: true
   when: ansible_facts['os_family'] == "Darwin"
-  register: power_line_fonts_installed
+  register: shell_power_line_fonts_installed
   tags:
-  - powerline-fonts
-  - zsh
+    - powerline-fonts
+    - zsh
 
-- name: Clone powerline fonts repo
-  git:
+# WARNING: This git task may not be fully idempotent if the remote changes.
+# We accept this risk for this playbook.
+- name: Clone Powerline fonts repository
+  ansible.builtin.git:
     repo: git@github.com:powerline/fonts.git
-    dest: "{{ ansible_env.HOME }}/code/fonts"
-  when: power_line_fonts_installed.files is defined and power_line_fonts_installed.files|length == 0
+    dest: '{{ ansible_facts["env"]["HOME"] }}/code/fonts'
+    update: false
+  when: shell_power_line_fonts_installed.files is defined and shell_power_line_fonts_installed.files|length == 0
   tags:
-  - powerline-fonts
-  - zsh
+    - powerline-fonts
+    - zsh
 
-- name: Install powerline fonts
-  command: "{{ ansible_env.HOME }}/code/fonts/install.sh"
-  when: power_line_fonts_installed.files is defined and power_line_fonts_installed.files|length == 0
+- name: Install Powerline fonts
+  ansible.builtin.command: '{{ ansible_facts["env"]["HOME"] }}/code/fonts/install.sh'
+  when: shell_power_line_fonts_installed.files is defined and shell_power_line_fonts_installed.files|length == 0
+  changed_when: false
   tags:
-  - powerline-fonts
-  - zsh
+    - powerline-fonts
+    - zsh

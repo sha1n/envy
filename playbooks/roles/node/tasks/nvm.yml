@@ -1,32 +1,32 @@
 ---
-- name: Install NVM
-  include_role:
+- name: Install NVM using Homebrew
+  ansible.builtin.include_role:
     name: brew
     tasks_from: install_formula.yml
   vars:
     brew_formulas:
-    - nvm
+      - nvm
   tags:
-  - nvm
+    - nvm
 
-- name: Creates NVM home directory
-  file:
-    path: "{{ ansible_env.HOME }}/.nvm"
+- name: Create NVM home directory
+  ansible.builtin.file:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.nvm'
     mode: "0755"
     state: directory
   tags:
-  - nvm
+    - nvm
 
-- name: Export NVM Home
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+- name: Export NVM home path to .zshrc
+  ansible.builtin.lineinfile:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.zshrc'
     line: "export NVM_DIR=\"$HOME/.nvm\""
   tags:
-  - nvm
+    - nvm
 
-- name: Source NVM script
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.zshrc"
+- name: Source NVM script in .zshrc
+  ansible.builtin.lineinfile:
+    path: '{{ ansible_facts["env"]["HOME"] }}/.zshrc'
     line: "source $(brew --prefix nvm)/nvm.sh"
   tags:
-  - nvm
+    - nvm

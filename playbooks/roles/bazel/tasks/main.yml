@@ -1,4 +1,5 @@
 ---
-- include_tasks: bazel.yml
+- name: Include Bazel main tasks
+  ansible.builtin.include_tasks: bazel.yml
   tags:
-  - bazel
+    - bazel
